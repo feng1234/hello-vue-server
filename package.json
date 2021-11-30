@@ -3,21 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start":"node ./dist/index.js",
-    "dev":"npm run build && npm run watch",
-    "build": "npm run build-ts",
+    "start": "node ./dist/index.js",
+    "prod":"set NODE_ENV='production' && node ./dist/index.js",
+    "dev": "npm run build && npm run watch",
+    "build": "npm run build-ts && npm run copy-static-assets",
     "build-ts": "tsc",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"nodemon dist/index.js\"",
     "watch-ts": "tsc -w",
+    "copy-static-assets": "node copyStaticAssets.js",
     "deploy": "cloudbase framework deploy",
     "deploy:server": "cloudbase framework deploy node"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.13"
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "shelljs": "^0.8.4"
   }
 }
